@@ -1,34 +1,39 @@
 import React from 'react'
 import tile from '../images/tile.jpg';
 
-export default class AddItem extends React.Component{
+const app = {
+    itemName: 'Coffee',
+    itemQuantity: 6,
+    items: []
+}
 
-    addItem = (e) => {
-        e.preventDefault()
-        const getItem = e.target.elements
-        console.log(getItem);
-        //const retrievedItem = this.props.addItem(getItem)
-
-        //this.setState(() => ({error}))
+const onItemFormSubmit = (e) => {
+    e.preventDefault()
+    const getItem = e.target.elements.item.value
+    console.log(getItem);
     
+    if(getItem){
+        app.items.push(getItem)
+        e.target.elements.getItem.value = ''
     }
+}
 
+
+export default class AddItem extends React.Component{
     render() {
         return (
             <div>
-                 <form onSubmit={this.addItem}>
-                    <input type="text"/>
+                <form onSubmit={onItemFormSubmit}>
+                    <input type="text" name="item"/>
                     <button>Add Item</button>
                 </form>
-                <div>
+                <p>{app.items.length}</p>
                 <ul>
-                    {/* <li>{retrievedItem}</li> */}
-                    <li>Tea</li>
-                    <li>Milk</li>
-
+                    <li>{app.itemName}</li>
+                    <li>{app.itemQuantity}</li>
+                    <br></br>
                     <img src={tile} alt="generic food" />
                 </ul>
-                </div>
             </div>
         )
     }
